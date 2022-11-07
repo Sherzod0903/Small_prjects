@@ -19,10 +19,13 @@ const minus =(id)=>{
     setState(res)
     
     }
+    const onChange=(e)=>{
+      setState({name:e.target.value})
+    }
 
     const onAdd=()=>{
-       
         
+        console.log(state);
     }
 
 return(
@@ -33,8 +36,9 @@ return(
 <Container>
     <Card>
     <Card.Title >Please add a fruit</Card.Title>
-    <Card.Input type='text' placeholder='Add a fruit...'/>
-    <Card.Add onClick={onAdd}>Add</Card.Add>
+    <Card.Input value={state.name} type='text' placeholder='Add a fruit...' onChange={onChange}/>
+    <Card.Add>Add</Card.Add>
+    <Card.Job>Name: {state.name}</Card.Job>
 
 {
  state.map((value)=>{

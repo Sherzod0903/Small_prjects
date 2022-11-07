@@ -20,6 +20,8 @@ border-radius:5px;
 
 
 `
+Card.Job=styled.div`
+`
 Card.Input=styled.input`
 margin:10px 5px;
 width:375px;
