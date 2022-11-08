@@ -12,8 +12,8 @@ margin-top:200px;
 export const Card=styled.div`
 display:flex;
 flex-direction:column;
-width:400px;
-height:450px;
+width:auto;
+height:auto;
 background-color:#EC8171;
 border-radius:5px;
 
@@ -21,6 +21,7 @@ border-radius:5px;
 
 `
 Card.Job=styled.div`
+
 `
 Card.Input=styled.input`
 margin:10px 5px;

@@ -1,33 +1,66 @@
-import React, { useState } from "react";
+import React from "react";
 import { Card, Container,Hr} from "./styled";
 import {data} from '../utilis/data'
 
-const Fruits=()=>{
+export class Fruits extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+            info:data,
+            name:'',
+            price:'',
+            quantity:3,
+            count:0,
+        }
+    }
 
-const [state,setState]=useState(data)
-var total=0;
-var prc=0;
+render(){
+    var total=0;
+    var prc=0;
+const onChange=(e)=>{
+this.setState({[e.target.name]:e.target.value})
+}
 
+const onAdd=()=>{
+        let newUser={
+            id:Date.now(),
+            name:this.state.name,
+            price:this.state.price
+            
+        }
+        this.setState({
+            info:[...this.state.info,newUser],
+            name:'',
+            price:''
+        })
 
-const plus =(id)=>{
-let res=state.map((value)=>value.id===id ? {...value,quantity:value.quantity+1}:value)
-setState(res)
 
 }
-const minus =(id)=>{
-    let res=state.map((value)=>value.id===id && value.quantity > 0 ? {...value,quantity:value.quantity-1}:value)
-    setState(res)
-    
-    }
-    const onChange=(e)=>{
-      setState({name:e.target.value})
-    }
 
-    const onAdd=()=>{
-        
-        console.log(state);
-    }
 
+const plus=(id)=>{
+    let res=this.state.info.map((value)=>value.id===id? {...value,quantity:value.quantity+1}:value)
+    console.log(id);
+
+this.setState({quantity:this.state.quantity+1})
+console.log(res);
+
+
+   
+}
+const minus=(id)=>{
+    let ress=this.state.info.map((value)=>value.id===id? {...value,quantity:value.quantity-1}:value)
+    console.log(id);
+
+    this.setState({quantity:this.state.quantity-1})
+
+
+}
+
+const onDelete=(id)=>{
+    let del=this.state.info.filter((value)=>value.id!==id)
+    this.setState({info:del})
+}
 return(
 
 
@@ -35,15 +68,19 @@ return(
 
 <Container>
     <Card>
+     
     <Card.Title >Please add a fruit</Card.Title>
-    <Card.Input value={state.name} type='text' placeholder='Add a fruit...' onChange={onChange}/>
-    <Card.Add>Add</Card.Add>
-    <Card.Job>Name: {state.name}</Card.Job>
+    <Card.Input name='name' value={this.state.name} onChange={onChange}  type='text' placeholder='Add a fruit...' />
+    <Card.Input name='price' value={this.state.price} onChange={onChange}  type='text' placeholder='Add price...' />
+
+ 
+    <button onClick={onAdd}>add</button>
+
 
 {
- state.map((value)=>{
-    total+=value.quantity
-    prc+=value.price*value.quantity
+ this.state.info.map((value)=>{
+    total+=this.state.quantity
+    prc+=value.price*this.state.quantity
     return(
 <Container.Wrapper key={value.id}>
 
@@ -51,9 +88,9 @@ return(
 <Container.Product >{value.price}$</Container.Product>
 
 <Container.Plus onClick={()=>plus(value.id)}>+</Container.Plus>
-<Container.Quality>{value.quantity}</Container.Quality>
-
+<Container.Quality>{this.state.quantity}</Container.Quality>
 <Container.Minus onClick={()=>minus(value.id)}>-</Container.Minus>
+<button onClick={()=>onDelete(value.id)}>delete</button>
 
 </Container.Wrapper>
 
@@ -77,6 +114,6 @@ return(
 
 
     )
-
+}
 }
 export default Fruits;
