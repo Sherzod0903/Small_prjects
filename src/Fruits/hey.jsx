@@ -72,7 +72,7 @@ state.info.map((value)=>{
 
             <td>{value.price}</td>
         
-<td><button onClick={()=>onDelete(value.id)}  >delete</button></td>
+<td><button onClick={()=>onDelete(value.id)} >delete</button></td>
 </tr>
         )
     })

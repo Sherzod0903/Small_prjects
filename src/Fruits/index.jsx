@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Container,Hr} from "./styled";
+import { Card, Container,Hr,Box} from "./styled";
 import {data} from '../utilis/data'
 
 export class Fruits extends React.Component{
@@ -9,7 +9,7 @@ export class Fruits extends React.Component{
             info:data,
             name:'',
             price:'',
-            quantity:3,
+            quantity:0,
             count:0,
         }
     }
@@ -39,22 +39,21 @@ const onAdd=()=>{
 
 
 const plus=(id)=>{
-    let res=this.state.info.map((value)=>value.id===id? {...value,quantity:value.quantity+1}:value)
-    console.log(id);
-
-this.setState({quantity:this.state.quantity+1})
-console.log(res);
-
-
-   
+    
+    
+    // let res= this.state.info.map((value)=>id===value.id? {...value,quantity:value.quantity-1}:value)
+        this.setState({quantity:this.state.quantity+1})
+    
+// console.log(res);
+  
 }
 const minus=(id)=>{
-    let ress=this.state.info.map((value)=>value.id===id? {...value,quantity:value.quantity-1}:value)
+    // this.state.info.map((value)=>value.id===id? {...value,quantity:value.quantity-1}:value)
     console.log(id);
+if (this.state.quantity>0){
 
     this.setState({quantity:this.state.quantity-1})
-
-
+}
 }
 
 const onDelete=(id)=>{
@@ -74,7 +73,7 @@ return(
     <Card.Input name='price' value={this.state.price} onChange={onChange}  type='text' placeholder='Add price...' />
 
  
-    <button onClick={onAdd}>add</button>
+    <Card.Button onClick={onAdd}>Add To Cart</Card.Button>
 
 
 {
@@ -82,24 +81,24 @@ return(
     total+=this.state.quantity
     prc+=value.price*this.state.quantity
     return(
-<Container.Wrapper key={value.id}>
+<Box.Wrapper key={value.id}>
 
-<Container.Product >{value.name}</Container.Product>
-<Container.Product >{value.price}$</Container.Product>
+<Box.Product >{value.name}</Box.Product>
+<Box.Product >{value.price}$</Box.Product>
 
-<Container.Plus onClick={()=>plus(value.id)}>+</Container.Plus>
-<Container.Quality>{this.state.quantity}</Container.Quality>
-<Container.Minus onClick={()=>minus(value.id)}>-</Container.Minus>
-<button onClick={()=>onDelete(value.id)}>delete</button>
+<Box.Plus onClick={()=>plus(value?.id)}>+</Box.Plus>
+<Box.Quality>{this.state.quantity}</Box.Quality>
+<Box.Minus onClick={()=>minus(value?.id)}>-</Box.Minus>
+<Box.Delete onClick={()=>onDelete(value.id)}>Delete</Box.Delete>
 
-</Container.Wrapper>
+</Box.Wrapper>
 
-    )
- })
+)
+})
 }
 <Hr/>
-<Container.Total>Total: {total}</Container.Total>
-<Container.Total>  Total price: {prc}$</Container.Total>
+<Box.Total>Total: {total}</Box.Total>
+<Box.Total>  Total price: {prc}$</Box.Total>
 
 
 
@@ -111,6 +110,7 @@ return(
     </Card>
 
     </Container>
+
 
 
     )
